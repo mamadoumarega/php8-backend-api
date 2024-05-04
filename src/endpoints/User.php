@@ -2,11 +2,15 @@
 
 namespace Mamadou\Php8BackendApi;
 
-use Mamadou\Php8BackendApi\endpoints\Exception\InvalidValidationException;
+use Mamadou\Php8BackendApi\Exception\InvalidValidationException;
 use Respect\Validation\Validator as v;
+
 class User
 {
     public readonly int $userId;
+    const MINILENGTH = 2;
+    const MAXIMUMLENGTH = 60;
+
     public function __construct(
         public readonly string $email,
         public readonly string $firstname,
@@ -21,12 +25,9 @@ class User
      */
     public function create(mixed $data): object
     {
-        $minimumLength = 2;
-        $maximumLength = 60;
-
         $schemaValidate = v::attribute('email', v::email(), mandatory: false)
-            ->attribute('firstname', v::stringType()->length($minimumLength, $maximumLength))
-            ->attribute('surname', v::stringType()->length($minimumLength, $maximumLength))
+            ->attribute('firstname', v::stringType()->length($this::MINILENGTH, $this::MAXIMUMLENGTH))
+            ->attribute('surname', v::stringType()->length($this::MINILENGTH, $this::MAXIMUMLENGTH))
             ->attribute('phoneNumber', v::phone(), mandatory: false)
         ;
 
@@ -34,9 +35,7 @@ class User
             return $data;
         }
 
-        throw new InvalidValidationException();
-
-        return $this;
+        throw new InvalidValidationException("Invalid Data");
     }
 
     public function retrieve(int $userId): self
