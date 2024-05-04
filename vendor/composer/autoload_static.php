@@ -7,6 +7,10 @@ namespace Composer\Autoload;
 class ComposerStaticInitd21bf1ef6c9e261e4d233d97e3fd4dee
 {
     public static $prefixLengthsPsr4 = array (
+        'M' => 
+        array (
+            'Mamadou\\Php8BackendApi\\' => 23,
+        ),
         'F' => 
         array (
             'Firebase\\JWT\\' => 13,
@@ -14,6 +18,10 @@ class ComposerStaticInitd21bf1ef6c9e261e4d233d97e3fd4dee
     );
 
     public static $prefixDirsPsr4 = array (
+        'Mamadou\\Php8BackendApi\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src',
+        ),
         'Firebase\\JWT\\' => 
         array (
             0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
