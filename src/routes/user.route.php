@@ -12,8 +12,8 @@ enum UserAction: string
     case UPDATE = 'update';
     public function getResponse(): false|string
     {
-        $userId = (int)($_GET['user_id']) ?? 0;
-        $user = new User('test@yopmail.com', 'Hamza', '0000000000');
+        $userId = !empty($_GET['user_id']) ? (int)$_GET['user_id'] : 0;
+        $user = new User('test@yopmail.com', 'Hamza', '0000000000'); // for test deleting after
 
         $response =  match ($this) {
             self::CREATE => $user->create(),
