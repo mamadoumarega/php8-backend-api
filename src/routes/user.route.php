@@ -3,6 +3,8 @@ namespace Mamadou\Php8BackendApi;
 
 use Exception;
 use Mamadou\Php8BackendApi\Exception\InvalidValidationException;
+use PH7\JustHttp\StatusCode;
+use PH7\PhpHttpResponseHeader\Http;
 
 require_once dirname(__DIR__) . '/endpoints/User.php';
 
@@ -26,11 +28,12 @@ enum UserAction: string
                 self::CREATE => $user->create($userData),
                 self::RETRIEVE => $user->retrieve($userId),
                 self::RETRIEVE_ALL => $user->retrieveAll(),
-                self::REMOVE => $user->remove(),
+                self::REMOVE => $user->remove($userId),
                 self::UPDATE => $user->update($userData),
             };
 
         } catch (InvalidValidationException | Exception $exception) {
+            Http::setHeadersByCode(StatusCode::BAD_REQUEST);
             $response = [
                 'errors' => [
                     'message' => sprintf('%s', $exception->getMessage()),

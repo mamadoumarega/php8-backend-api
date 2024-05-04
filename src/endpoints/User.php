@@ -38,7 +38,7 @@ class User
         throw new InvalidValidationException("Invalid Data");
     }
 
-    public function retrieve(int $userId): self
+    public function retrieve(string $userId): self
     {
         $this->userId = $userId;
 
@@ -59,11 +59,13 @@ class User
      */
     public function update(mixed $data): self
     {
+        // TODO update `$data` to the DAL later on (for updating database)
         return $this;
     }
 
-    public function remove(): self
+    public function remove(string $userId): self
     {
+        // TODO Lookup the DB user row with this userId
         return $this;
     }
 

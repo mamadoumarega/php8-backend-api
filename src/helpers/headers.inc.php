@@ -2,5 +2,7 @@
 
 namespace Mamadou\Php8BackendApi;
 
+use PH7\PhpHttpResponseHeader\Http;
+
 (new AllowCors())->init();
-header('Content-type: application/json');
+Http::setContentType('application/json');
