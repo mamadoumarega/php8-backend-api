@@ -1,5 +1,24 @@
 {
+    "name": "mamadou/php8-backend-api",
+    "description": "A simple RESTful API",
+    "autoload": {
+        "psr-4": {
+            "Mamadou\\Php8BackendApi\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Mamadou MARÉGA",
+            "email": "hamshakour93@gmail.com"
+        }
+    ],
+    "config": {
+        "platform": {
+            "php": "8.1.0"
+        }
+    },
     "require": {
+        "php": ">=8.1.0",
         "firebase/php-jwt": "^6.10"
     }
 }
