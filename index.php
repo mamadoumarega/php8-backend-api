@@ -3,4 +3,6 @@
 
    require __DIR__ . '/vendor/autoload.php';
    require __DIR__ . '/src/routes/routes.php';
+   require __DIR__ . '/src/config/config.inc.php';
+   require __DIR__ . '/src/config/database.inc.php';
    require __DIR__ . '/src/helpers/headers.inc.php';
