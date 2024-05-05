@@ -2,14 +2,13 @@
 
 namespace Mamadou\Php8BackendApi;
 
-use Mamadou\Php8BackendApi\Exception\InvalidValidationException;
+use Mamadou\Php8BackendApi\Validation\Exception\InvalidValidationException;
+use Mamadou\Php8BackendApi\Validation\UserValidation;
 use Respect\Validation\Validator as v;
 
 class User
 {
-    public readonly int $userId;
-    const MINILENGTH = 2;
-    const MAXIMUMLENGTH = 60;
+    public readonly ?string $userId;
 
     public function __construct(
         public readonly string $email,
@@ -25,22 +24,27 @@ class User
      */
     public function create(mixed $data): object
     {
-        $schemaValidate = v::attribute('email', v::email(), mandatory: false)
-            ->attribute('firstname', v::stringType()->length($this::MINILENGTH, $this::MAXIMUMLENGTH))
-            ->attribute('surname', v::stringType()->length($this::MINILENGTH, $this::MAXIMUMLENGTH))
-            ->attribute('phoneNumber', v::phone(), mandatory: false)
-        ;
+        $userValidation  = new UserValidation($data);
+        $schemaValidate = $userValidation->isCreationSchemaValid();
 
-        if ($schemaValidate->validate($data)) {
+        if ($schemaValidate) {
             return $data;
         }
 
-        throw new InvalidValidationException("Invalid Data");
+        throw new InvalidValidationException("Invalid user payload");
     }
 
-    public function retrieve(string $userId): self
+    /**
+     * @param string $userId
+     * @return $this
+     */
+    public function retrieve(string $userId): static
     {
-        $this->userId = $userId;
+        if (v::uuid()->validate($userId)) {
+            $this->userId = $userId;
+        } else {
+            throw new InvalidValidationException("User does not exists");
+        }
 
         return $this;
     }
@@ -55,12 +59,18 @@ class User
 
     /**
      * @param mixed $data
-     * @return $this
+     * @return object
      */
-    public function update(mixed $data): self
+    public function update(mixed $data): object
     {
-        // TODO update `$data` to the DAL later on (for updating database)
-        return $this;
+        $userValidation  = new UserValidation($data);
+        $schemaValidate = $userValidation->isUpdateSchemaValid();
+
+        if ($schemaValidate) {
+            return $data;
+        }
+
+        throw new InvalidValidationException("Invalid user payload");
     }
 
     public function remove(string $userId): self
