@@ -73,10 +73,19 @@ class User
         throw new InvalidValidationException("Invalid user payload");
     }
 
-    public function remove(string $userId): self
+    /**
+     * @param string $userId
+     * @return bool
+     */
+    public function remove(string $userId): bool
     {
-        // TODO Lookup the DB user row with this userId
-        return $this;
+        if (v::uuid()->validate($userId)) {
+            $this->userId = $userId;
+        } else {
+            throw new InvalidValidationException("User does not exists");
+        }
+
+        return true;
     }
 
 }
