@@ -2,7 +2,7 @@
 namespace Mamadou\Php8BackendApi;
 
 use Exception;
-use Mamadou\Php8BackendApi\Exception\InvalidValidationException;
+use Mamadou\Php8BackendApi\Validation\Exception\InvalidValidationException;
 use PH7\JustHttp\StatusCode;
 use PH7\PhpHttpResponseHeader\Http;
 
@@ -20,7 +20,7 @@ enum UserAction: string
         $userData = file_get_contents('php://input');
         $userData = json_decode($userData);
 
-        $userId = !empty($_GET['user_id']) ? (int)$_GET['user_id'] : 0;
+        $userId = $_GET['user_id'] ?? null;
         $user = new User('test@yopmail.com', 'Hamza', 'MARÉGA', '0000000000'); // for test deleting after
 
         try {

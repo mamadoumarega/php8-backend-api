@@ -1,6 +1,6 @@
 <?php
 
-namespace Mamadou\Php8BackendApi\Exception;
+namespace Mamadou\Php8BackendApi\Validation\Exception;
 
 use RuntimeException;
 
