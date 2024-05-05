@@ -22,6 +22,7 @@
         "firebase/php-jwt": "^6.10",
         "respect/validation": "^2.3",
         "ph-7/php-http-response-header": "^1.0",
-        "ramsey/uuid": "^4.7"
+        "ramsey/uuid": "^4.7",
+        "gabordemooij/redbean": "^5.7"
     }
 }
