@@ -15,12 +15,12 @@ enum UserAction: string
     case RETRIEVE_ALL = 'retrieveAll';
     case REMOVE = 'remove';
     case UPDATE = 'update';
-    public function getResponse()
+    public function getResponse(): string
     {
         $userData = file_get_contents('php://input');
         $userData = json_decode($userData);
 
-        $userId = $_GET['user_id'] ?? null;
+        $userId = $_REQUEST['user_id'] ?? null;
         $user = new User('test@yopmail.com', 'Hamza', 'MARÉGA', '0000000000'); // for test deleting after
 
         try {
@@ -46,7 +46,7 @@ enum UserAction: string
     }
 }
 
-$action = $_GET['action'] ?? null;
+$action = $_REQUEST['action'] ?? null;
 
 $userAction = match ($action) {
     'create' => UserAction::CREATE,

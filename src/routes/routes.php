@@ -1,6 +1,6 @@
 <?php
 
-$resource = $_GET['resource'] ?? null;
+$resource = $_REQUEST['resource'] ?? null;
 
 switch ($resource) {
     case 'user':
