@@ -1,0 +1,14 @@
+
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        # Disable directory Browsing
+        Options -Multiviews -Indexes
+    </IfModule>
+    Options +FollowSymLinks
+
+    # Indicates to apache to enable the rewrite mode
+    RewriteEngine On
+
+    # Rewrite the requests to index.php with the correct GET params
+    RewriteRule ^([^/]+)/?([^/]+)?/?([^/]+)?/?$ index.php?resource=$1&action=$2user_id=$3 [QSA,L]
+</IfModule>
