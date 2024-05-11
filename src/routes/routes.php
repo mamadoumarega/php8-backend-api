@@ -7,5 +7,5 @@ switch ($resource) {
         return require_once 'user.route.php';
 
     default:
-        // 404
+        return require_once 'main.routes.php';
 }
